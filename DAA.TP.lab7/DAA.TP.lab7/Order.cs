@@ -12,9 +12,23 @@
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
 
+        public Order(string name, string address, string phoneNumber)
+        {
+            this.Name = name;
+            this.Address = address;
+            this.PhoneNumber = phoneNumber;
+        }
+
         public override string DispalyInfo()
         {
             return "Имя заказчика: " + Name + ", адресс: " + Address + ", номер телефона: " + PhoneNumber + ".";
+        }
+
+        public void ChangeOrder(string name, string address, string phoneNumber)
+        {
+            this.Name = name;
+            this.Address = address;
+            this.PhoneNumber = phoneNumber;
         }
     }
 }
