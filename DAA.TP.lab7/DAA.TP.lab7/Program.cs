@@ -10,8 +10,14 @@
     {
         static void Main()
         {
-
+            Pizzeria Pizza = new Pizzeria();
+            Pizza.AddOrder("Крюков", "Архангельск", "345678");
+            Pizza.AddOrder("Ильченко", "Северодвинск", "654587");
+            Pizza.RemoveOrder("Ильченко");
+            Pizza.RemoveOrder("Юшманов");
+            Pizza.ChangeOrderInfo("Крюков", "Крюков", "Ломоносовский район", "236578");
             Console.ReadKey(true);
+
         }
     }
 }

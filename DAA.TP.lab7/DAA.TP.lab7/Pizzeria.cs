@@ -8,7 +8,12 @@
 
     class Pizzeria
     {
-        public List<Order> ListofOrders { get; set; }
+        public List<Order> ListofOrders;
+
+        public Pizzeria()
+        {
+            ListofOrders = new List<Order>();
+        }
 
         public void AddOrder(string name, string address, string phoneNumber)
         {
@@ -31,7 +36,7 @@
         public void ChangeOrderInfo(string name, string newName, string address, string phoneNumber)
         {
             var order = FindOrder(name);
-            order.ChangeOrder(name, newName, phoneNumber);
+            order.ChangeOrder(newName, address, phoneNumber);
         }
 
         public Order FindOrder(string name)
