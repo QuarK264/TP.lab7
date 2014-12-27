@@ -15,36 +15,44 @@
             Pizza.AddOrder("Ильченко", "Северодвинск", "654587");
             Pizza.AddOrder("Данилов", "Архангельск", "158356");
             Pizza.AddOrder("Игорь", "Архангельск", "278905");
-            
+
             Console.WriteLine("Сделаны заказы:");
-            foreach (Order order  in Pizza.ListofOrders)
+            foreach (Order order in Pizza.ListOfOrders)
             {
                 Console.WriteLine(order.ToString());
             }
 
             Console.WriteLine("Заказы отменены:");
             Pizza.RemoveOrder("Ильченко", "Северодвинск", "654587");
-            Pizza.RemoveOrder("Юшманов", "Архангельск", "426414");            
-            foreach (Order order in Pizza.ListofOrders)
+            Pizza.RemoveOrder("Юшманов", "Архангельск", "426414");
+            foreach (Order order in Pizza.ListOfOrders)
             {
                 Console.WriteLine(order.ToString());
             }
 
             Pizza.ChangeOrderInfo("Крюков", "Крюков", "Ломоносовский район", "236578");
             Console.WriteLine("Заказы изменены:");
-            foreach (Order order in Pizza.ListofOrders)
+            foreach (Order order in Pizza.ListOfOrders)
             {
                 Console.WriteLine(order.ToString());
+            }
+            Console.WriteLine("Без foreach:");
+            for (int i = 0; i < Pizza.ListOfOrders.Count; i++)
+            {
+                Console.WriteLine(Pizza[i].ToString());
             }
             Console.WriteLine("Заказы из с одного адреса:");
             Pizza.PrintOrdersFromAddress("Архангельск");
             Pizza.AddOrder("Крюков", "10 корпус", "453254");
             Pizza.AddOrder("Крюков", "Привокзальный", "564532");
             Pizza.AddOrder("Кирьянов", "Соломбала", "342456");
+            Pizza.AddOrder("Игорь", "Соломбала", "435678");
 
-
+            Console.WriteLine("Больше всего заказов от:");
             Pizza.PrintPersonsWithMostOrdersInfo();
+            Console.WriteLine("Меньше всего заказов от:");
             Pizza.PrintPersonsWithLessOrdersInfo();
+
             Console.ReadKey(true);
         }
     }

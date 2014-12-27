@@ -8,24 +8,48 @@
 
     class Pizzeria
     {
-        public List<Order> ListofOrders;
+        private List<Order> listofOrders;
+
+        public List<Order> ListOfOrders
+        {
+            get
+            {
+                return listofOrders;
+            }
+            set
+            {
+                listofOrders = value;
+            }
+        }
+
+        public Order this[int index]
+        {
+            get
+            {
+                return listofOrders[index];
+            }
+            set
+            {
+                listofOrders[index] = value;
+            }
+        }
 
         public Pizzeria()
         {
-            ListofOrders = new List<Order>();
+            listofOrders = new List<Order>();
         }
 
         public void AddOrder(string name, string address, string phoneNumber)
         {
-            ListofOrders.Add(new Order(name, address, phoneNumber));
+            listofOrders.Add(new Order(name, address, phoneNumber));
         }
 
         public void RemoveOrder(string name, string address, string phoneNumber)
         {
             var target = new Order { Name = name, Address = address, PhoneNumber = phoneNumber };
-            if (ListofOrders.Contains(target))
+            if (listofOrders.Contains(target))
             {
-                ListofOrders.Remove(target);
+                listofOrders.Remove(target);
             }
             else
             {
@@ -36,19 +60,19 @@
         public void ChangeOrderInfo(string name, string newName, string address, string phoneNumber)
         {
             var order = FindOrder(name);
-            ListofOrders.Remove(order);
+            listofOrders.Remove(order);
             order.ChangeOrder(newName, address, phoneNumber);
-            ListofOrders.Add(order);
+            listofOrders.Add(order);
         }
 
         public Order FindOrder(string name)
         {
-            return ListofOrders.Find(target => target.Name.Contains(name));
+            return listofOrders.Find(target => target.Name.Contains(name));
         }
 
         public void PrintOrdersFromAddress(string address)
         {
-            List<Order> FromOneAddress = ListofOrders.FindAll(target => target.Address.Contains(address));
+            List<Order> FromOneAddress = listofOrders.FindAll(target => target.Address.Contains(address));
             foreach (Order order in FromOneAddress)
             {
                 Console.WriteLine(order.ToString());
@@ -78,7 +102,7 @@
         public void PrintPersonsWithLessOrdersInfo()
         {
             List<string> Names = ExtractNames();
-            uint LessOrdersFromPerson = 1;
+            uint LessOrdersFromPerson = uint.MaxValue;
             uint OrdersFromPerson = 0;
             foreach (string name in Names)
             {
@@ -95,19 +119,20 @@
             PrintPresonsOrders(Names, LessOrdersFromPerson);
         }
 
-        private void PrintPresonsOrders(List<string> Names, uint MaxOrdersFromPerson)
+        private void PrintPresonsOrders(List<string> Names, uint OrdersFromPerson)
         {
             string PersonWithNotisableOrders;
             foreach (string name in Names)
             {
-                if (MaxOrdersFromPerson == (uint)Names.Count<string>(target => target == name))
+                if (OrdersFromPerson == (uint)Names.Count<string>(target => target == name))
                 {
                     PersonWithNotisableOrders = name;
-                    List<Order> FromPerson = ListofOrders.FindAll(target => target.Address.Contains(PersonWithNotisableOrders));
+                    List<Order> FromPerson = listofOrders.FindAll(target => target.Name.Contains(PersonWithNotisableOrders));
                     foreach (Order order in FromPerson)
                     {
                         Console.WriteLine(order.ToString());
                     }
+                    break;
                 }
             }
         }
@@ -115,7 +140,7 @@
         private List<string> ExtractNames()
         {
             List<string> Names = new List<string>();
-            foreach (Order order in ListofOrders)
+            foreach (Order order in listofOrders)
             {
                 Names.Add(order.Name);
             }
