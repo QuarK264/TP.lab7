@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     class Pizzeria
     {
@@ -32,17 +30,17 @@
             }
         }
 
-        public void ChangeOrderInfo(string name, string newName, string address, string phoneNumber)
+        public void ChangeOrderInfo(string name, string address, string phoneNumber, string newName, string newAddress, string newPhoneNumber)
         {
-            var order = FindOrder(name);
+            var order = FindOrder(name, address, phoneNumber);
             ListofOrders.Remove(order);
-            order.ChangeOrder(newName, address, phoneNumber);
+            order.ChangeOrder(newName, newAddress, newPhoneNumber);
             ListofOrders.Add(order);
         }
 
-        public Order FindOrder(string name)
+        private Order FindOrder(string name, string address, string phoneNumber)
         {
-            return ListofOrders.Find(target => target.Name.Contains(name));
+            return ListofOrders.Find(target => target.Name.Contains(name) && target.Address.Contains(address) && target.PhoneNumber.Contains(phoneNumber));
         }
 
         public void PrintOrdersFromAddress(string address)
@@ -97,18 +95,19 @@
         private void PrintPresonsOrders(List<string> Names, uint OrdersFromPerson)
         {
             string PersonWithNotisableOrders;
-            foreach (string name in Names)
+            List<string> TempNames = Names;
+            for (int i = 0; i < TempNames.Count; i++)
             {
-                if (OrdersFromPerson == (uint)Names.Count<string>(target => target == name))
+                if (OrdersFromPerson == (uint)Names.Count<string>(target => target == TempNames[i]))
                 {
-                    PersonWithNotisableOrders = name;
+                    PersonWithNotisableOrders = TempNames[i];
                     List<Order> FromPerson = ListofOrders.FindAll(target => target.Name.Contains(PersonWithNotisableOrders));
                     foreach (Order order in FromPerson)
                     {
                         Console.WriteLine(order.ToString());
                     }
-                    break;
-                }
+                    TempNames.RemoveAll(target => target.Contains(PersonWithNotisableOrders));
+                } 
             }
         }
 
